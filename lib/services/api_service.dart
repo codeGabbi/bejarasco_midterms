@@ -2,6 +2,7 @@ import 'package:fake_store/models/user_login.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../models/cart.dart';
 import '../models/product.dart';
 
 class ApiService {
@@ -80,6 +81,18 @@ class ApiService {
         }
       }
       return products;
+    }).catchError((err) => print(err));
+  }
+
+  Future<Cart?> getCart(String id) {
+     return http
+        .get(Uri.parse('$baseUrl/carts/$id'), headers: headers)
+        .then((data) {
+      if (data.statusCode == 200) {
+        final jsonData = json.decode(data.body);
+        return Cart.fromJson(jsonData);
+      }
+      return null;
     }).catchError((err) => print(err));
   }
 }
