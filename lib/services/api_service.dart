@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import '../models/cart.dart';
+import '../models/cart_update.dart';
 import '../models/product.dart';
 
 class ApiService {
@@ -99,6 +100,22 @@ class ApiService {
   Future<void> deleteCart(String cartId) {
     return http
         .delete(Uri.parse('$baseUrl/carts/$cartId'), headers: headers)
+        .then((data) {
+      if (data.statusCode == 200) {
+        final jsonData = json.decode(data.body);
+        print(jsonData);
+      }
+    }).catchError((err) => print(err));
+  }
+
+  Future<void> updateCart(int cartId, int productId) {
+    final cartUpdate =
+        CartUpdate(userId: cartId, date: DateTime.now(), products: [
+      {'productId': productId, 'quantity': 1}
+    ]);
+    return http
+        .put(Uri.parse('$baseUrl/carts/$cartId'),
+            body: json.encode(cartUpdate.toJson()), headers: headers)
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
