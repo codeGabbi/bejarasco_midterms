@@ -49,5 +49,21 @@ class ApiService {
       return null;
     }).catchError((err) => print(err));
   }
+
+  Future<List<String>> getAllCategories() {
+    return http
+        .get(Uri.parse('$baseUrl/products/categories'), headers: headers)
+        .then((data) {
+      final categories = <String>[];
+      if (data.statusCode == 200) {
+        final jsonData = json.decode(data.body);
+
+        for (var category in jsonData) {
+          categories.add(category);
+        }
+      }
+      return categories;
+    }).catchError((err) => print(err));
+  }
 }
 
