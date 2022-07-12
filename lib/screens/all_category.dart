@@ -33,14 +33,14 @@ class AllCategoryScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: InkWell(
-                    // onTap: () => Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (_) => ProductsByCategoryScreen(
-                    //       categoryName: categories[index],
-                    //     ),
-                    //   ),
-                    // ),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => ProductsByCategoryScreen(
+                          categoryName: categories[index],
+                        ),
+                      ),
+                    ),
                     child: Container(
                       padding: const EdgeInsets.all(40),
                       child: Center(
