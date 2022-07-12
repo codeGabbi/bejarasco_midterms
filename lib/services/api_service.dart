@@ -2,9 +2,13 @@ import 'package:fake_store/models/user_login.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../models/product.dart';
+
 class ApiService {
 
   static const String baseUrl = 'https://fakestoreapi.com';
+
+  static const headers = {'Content-type': 'application/json'};
 
   Future<dynamic> login(String username, String password) {
     final credentials = UserLogin(username: username, password: password);
@@ -17,4 +21,21 @@ class ApiService {
       }
     }).catchError((err) => print(err));
   }
+  
+  Future<List<Product>> getAllProducts() async {
+    return http
+        .get(Uri.parse('$baseUrl/products'), headers: headers)
+        .then((data) {
+      final products = <Product>[];
+      if (data.statusCode == 200) {
+        final jsonData = json.decode(data.body);
+
+        for (var product in jsonData) {
+          products.add(Product.fromJson(product));
+        }
+      }
+      return products;
+    }).catchError((err) => print(err));
+  }
 }
+
