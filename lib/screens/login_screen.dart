@@ -62,15 +62,15 @@ class LoginScreen extends StatelessWidget {
                         backgroundColor: Colors.green,
                       ),
                     );
-                    // Future.delayed(
-                    //   const Duration(seconds: 2),
-                    //   () => Navigator.pushReplacement(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (_) => const HomeScreen(),
-                    //     ),
-                    //   ),
-                    // );
+                    Future.delayed(
+                      const Duration(seconds: 2),
+                      () => Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const HomeScreen(),
+                        ),
+                      ),
+                    );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
