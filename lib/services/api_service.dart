@@ -95,5 +95,16 @@ class ApiService {
       return null;
     }).catchError((err) => print(err));
   }
+
+  Future<void> deleteCart(String cartId) {
+    return http
+        .delete(Uri.parse('$baseUrl/carts/$cartId'), headers: headers)
+        .then((data) {
+      if (data.statusCode == 200) {
+        final jsonData = json.decode(data.body);
+        print(jsonData);
+      }
+    }).catchError((err) => print(err));
+  }
 }
 
